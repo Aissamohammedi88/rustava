@@ -1,0 +1,169 @@
+// Test complet du mariage — chaque règle de la table de décision
+// Variables mutables : var x = 10;
+fn test_variables() {
+    var x = 10;
+    x = x + 5;
+    afficher(x);          // 15
+}
+
+// Variables immuables : let x = 10;
+fn test_immuable() {
+    let x = 10;
+    afficher(x + 2);      // 12 (lire est permis)
+}
+
+// La mémoire sans combat : passage par référence automatique
+fn affiche_nom(nom: string) {
+    print(nom);
+}
+
+fn test_reference() {
+    let nom = "Aissa";
+    affiche_nom(nom);      // Aissa (le compilateur emprunte tout seul)
+}
+
+// La gestion d'erreur Java : try / catch
+fn test_erreur() {
+    try {
+        print("avant");
+        throw "problème volontaire";
+        print("jamais affiché");
+    } catch (e) {
+        print("attrapé :");
+        print(e);
+    }
+}
+
+// division par zéro → erreur attrapable (panique Rustava)
+fn test_div_zero() {
+    try {
+        var x = 10 / 0;
+        print(x);
+    } catch (e) {
+        print("attrapé division :");
+        print(e);
+    }
+}
+
+// match (le Rust)
+fn test_match() {
+    var n = 2;
+    match n {
+        1 => print("un"),
+        2 => print("deux"),
+        _ => print("autre"),
+    }
+    let s = "beta";
+    match s {
+        "alpha" => print("A"),
+        "beta" => print("B"),
+        _ => print("?"),
+    }
+}
+
+// for in sur intervalle a..b (comme Rust : b exclu)
+fn test_for() {
+    for i in 0..5 {
+        afficher(i);      // 0 1 2 3 4
+    }
+    var total = 0;
+    for i in 1..101 {
+        total += i;
+    }
+    afficher(total);       // 5050
+}
+
+// tableaux
+fn test_tableaux() {
+    let t = [10, 20, 30];
+    afficher(t[0]);
+    afficher(t[2]);
+    afficher(longueur(t));   // 3
+    var somme = 0;
+    for x in t {
+        somme += x;
+    }
+    afficher(somme);          // 60
+}
+
+// chaînes + concaténation
+fn test_chaines() {
+    let a = "Bonjour ";
+    let b = "le monde";
+    let c = a + b;
+    print(c);                // Bonjour le monde
+    afficher(longueur(c));   // 16
+    afficher(caractere(c, 0)); // B
+}
+
+// while
+fn test_while() {
+    var i = 0;
+    var acc = 0;
+    while i < 5 {
+        acc += i;
+        i += 1;
+    }
+    afficher(acc);            // 10 (0+1+2+3+4)
+}
+
+// spawn : threads légers détachés
+fn tache_legere() {
+    print("le thread léger a couru");
+}
+
+fn test_spawn() {
+    spawn tache_legere();
+    dormir_ms(200);           // on laisse le thread finir
+}
+
+// fonctions avec retour
+fn carre(x: int) -> int {
+    return x * x;
+}
+
+fn test_retour() {
+    afficher(carre(7));       // 49
+}
+
+// horloge
+fn test_horloge() {
+    let t0 = horloge_ms();
+    dormir_ms(50);
+    let t1 = horloge_ms();
+    if t1 >= t0 + 40 {
+        print("l'horloge tourne bien");
+    } else {
+        print("horloge douteuse");
+    }
+}
+
+fn main() {
+    print("=== variables mutables ===");
+    test_variables();
+    print("=== immuable ===");
+    test_immuable();
+    print("=== référence automatique ===");
+    test_reference();
+    print("=== try / catch ===");
+    test_erreur();
+    print("=== division par zéro ===");
+    test_div_zero();
+    print("=== match ===");
+    test_match();
+    print("=== for ===");
+    test_for();
+    print("=== tableaux ===");
+    test_tableaux();
+    print("=== chaînes ===");
+    test_chaines();
+    print("=== while ===");
+    test_while();
+    print("=== spawn (thread léger) ===");
+    test_spawn();
+    print("=== retour de fonction ===");
+    test_retour();
+    print("=== horloge ===");
+    test_horloge();
+    print("=== FIN DES TESTS ===");
+}

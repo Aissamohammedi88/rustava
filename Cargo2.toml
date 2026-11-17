@@ -1,0 +1,12 @@
+[package]
+name = "rustava"
+version = "1.0.0"
+edition = "2021"
+description = "RUSTAVA — le mariage Java × Rust : syntaxe Java, mémoire Rust, compilateur natif vers C"
+
+[[bin]]
+name = "rustava"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 2

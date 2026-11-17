@@ -1,0 +1,48 @@
+// Le polymorphisme du mariage : interfaces (contrat Java)
+// Chien implémente Animal ; la référence est typée Animal,
+// l'objet concret décide à l'exécution (dispatch dynamique).
+
+interface Animal {
+    fn nom() -> string;
+    fn crier() -> string;
+}
+
+class Chien implements Animal {
+    let genre: string;
+
+    fn Chien(genre: string) {
+        self.genre = genre;
+    }
+
+    fn nom() -> string {
+        return "chien";
+    }
+
+    fn crier() -> string {
+        return "ouaf";
+    }
+}
+
+class Chat implements Animal {
+    fn nom() -> string {
+        return "chat";
+    }
+
+    fn crier() -> string {
+        return "miaou";
+    }
+}
+
+fn presente(a: Animal) {
+    print(a.nom());
+    print(a.crier());
+}
+
+fn main() {
+    let c = new Chien("berger");
+    presente(c);
+    let h = new Chat();
+    presente(h);
+    // le tableau d'animaux (interfaces dedans : le vrai Java)
+    print("fin");
+}

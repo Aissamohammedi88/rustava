@@ -1,0 +1,32 @@
+// Le tri à bulles en Rustava — preuve qu'on peut écrire du vrai code
+fn tri_bulles(t: int[]) {
+    var n = longueur(t);
+    var i = 0;
+    while i < n {
+        var j = 0;
+        while j < n - 1 - i {
+            if t[j] > t[j + 1] {
+                var tmp = t[j];
+                t[j] = t[j + 1];
+                t[j + 1] = tmp;
+            }
+            j += 1;
+        }
+        i += 1;
+    }
+}
+
+fn main() {
+    let t = [5, 3, 8, 1, 9, 2, 7];
+    print("avant :");
+    afficher(t);
+    tri_bulles(t);
+    print("après :");
+    afficher(t);
+    // somme de contrôle
+    var somme = 0;
+    for x in t {
+        somme += x;
+    }
+    afficher(somme);   // 35
+}
